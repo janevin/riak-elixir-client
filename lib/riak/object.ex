@@ -98,14 +98,21 @@ defmodule Riak.Object do
   end
 
   def to_robj(obj) do
+		if obj.type do
     robj = :riakc_obj.new(obj.bucket,
                           obj.key,
                           obj.data,
                           obj.content_type)
-
+		else
+		robj = :riakc_obj.new({obj.type, obj.bucket},
+                          obj.key,
+                          obj.data,
+                          obj.content_type)
+		end
     if obj.vclock, do: robj = :riakc_obj.set_vclock(robj, obj.vclock)
     if obj.metadata, do: robj = :riakc_obj.update_metadata(robj, obj.metadata)
-
+if obj.type, do: robj = :riakc_obj.
+		
     robj
   end
 
@@ -113,6 +120,7 @@ defmodule Riak.Object do
 
   def create(args) do
     obj = struct(Riak.Object, args)
+		IO.puts "create riak obj in riak_elixir_client : #{inspect obj}"
     from_robj(to_robj(obj)) # FIXME
   end
 
