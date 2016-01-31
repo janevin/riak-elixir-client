@@ -98,6 +98,8 @@ defmodule Riak.Object do
   end
 
   def to_robj(obj) do
+		IO.puts "obj = #{inspect obj}"
+IO.puts "obj.data  = #{inspect obj.data}"
 		if obj.type do
     robj = :riakc_obj.new(obj.bucket,
                           obj.key,
