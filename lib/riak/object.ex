@@ -111,7 +111,6 @@ defmodule Riak.Object do
 		end
     if obj.vclock, do: robj = :riakc_obj.set_vclock(robj, obj.vclock)
     if obj.metadata, do: robj = :riakc_obj.update_metadata(robj, obj.metadata)
-if obj.type, do: robj = :riakc_obj.
 		
     robj
   end
