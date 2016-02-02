@@ -101,24 +101,24 @@ defmodule Riak.Object do
 		IO.puts "to_robj = #{inspect obj}"
 		IO.puts "to_robj obj.bucket = #{inspect obj.bucket}"
 		
-		if obj.type do
+		#if obj.type do
    	#	robj = :riakc_obj.new({obj.type, obj.bucket},
-robj = :riakc_obj.new(obj.bucket,
-											obj.key,
-														obj.data,
-														obj.content_type)
-			IO.puts ("robj2 = #{inspect robj}")
-		else
+		#	robj = :riakc_obj.new(obj.bucket,
+		#									obj.key,
+		#												obj.data,
+		#												obj.content_type)
+		#	IO.puts ("robj2 = #{inspect robj}")
+		#else
 			robj = :riakc_obj.new(obj.bucket,
 														obj.key,
 														obj.data,
 														obj.content_type)
-			IO.puts ("robj1 = #{inspect robj}")
+		#	IO.puts ("robj1 = #{inspect robj}")
 			
-		end
+		#end
     if obj.vclock, do: robj = :riakc_obj.set_vclock(robj, obj.vclock)
     if obj.metadata, do: robj = :riakc_obj.update_metadata(robj, obj.metadata)
-		IO.puts ("robj = #{inspect robj}")
+		#IO.puts ("robj = #{inspect robj}")
     robj
   end
 
