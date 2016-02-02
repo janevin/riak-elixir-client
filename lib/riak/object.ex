@@ -88,14 +88,16 @@ defmodule Riak.Object do
   end
 
   def from_robj(robj) do
-    %Riak.Object{bucket: :riakc_obj.bucket(robj),
+   o =  %Riak.Object{bucket: :riakc_obj.bucket(robj),
                  type: :riakc_obj.bucket_type(robj),
                  key: :riakc_obj.key(robj),
                  data: :riakc_obj.get_update_value(robj),
                  metadata: :riakc_obj.get_update_metadata(robj),
                  vclock: :riakc_obj.vclock(robj),
                  content_type: :riakc_obj.get_update_content_type(robj)}
-  end
+IO.puts (" o = from_robj(rob) = #{inspect o}")
+o
+	end
 
   def to_robj(obj) do
 		IO.puts "to_robj = #{inspect obj}"
