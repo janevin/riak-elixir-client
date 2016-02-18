@@ -88,47 +88,30 @@ defmodule Riak.Object do
   end
 
   def from_robj(robj) do
-   o =  %Riak.Object{bucket: :riakc_obj.bucket(robj),
+    %Riak.Object{bucket: :riakc_obj.bucket(robj),
                  type: :riakc_obj.bucket_type(robj),
                  key: :riakc_obj.key(robj),
                  data: :riakc_obj.get_update_value(robj),
                  metadata: :riakc_obj.get_update_metadata(robj),
                  vclock: :riakc_obj.vclock(robj),
                  content_type: :riakc_obj.get_update_content_type(robj)}
-IO.puts (" o = from_robj(rob) = #{inspect o}")
-o
+
 	end
 
   def to_robj(obj) do
-		IO.puts "to_robj = #{inspect obj}"
-		IO.puts "to_robj obj.bucket = #{inspect obj.bucket}"
-		
-		#if obj.type do
-   	#	robj = :riakc_obj.new({obj.type, obj.bucket},
-		#	robj = :riakc_obj.new(obj.bucket,
-		#									obj.key,
-		#												obj.data,
-		#												obj.content_type)
-		#	IO.puts ("robj2 = #{inspect robj}")
-		#else
 			robj = :riakc_obj.new(obj.bucket,
 														obj.key,
 														obj.data,
 														obj.content_type)
-		#	IO.puts ("robj1 = #{inspect robj}")
-			
-		#end
-    if obj.vclock, do: robj = :riakc_obj.set_vclock(robj, obj.vclock)
+		if obj.vclock, do: robj = :riakc_obj.set_vclock(robj, obj.vclock)
     if obj.metadata, do: robj = :riakc_obj.update_metadata(robj, obj.metadata)
-		#IO.puts ("robj = #{inspect robj}")
-    robj
+	  robj
   end
 
   def create, do: %Riak.Object{}
 
   def create(args) do
     obj = struct(Riak.Object, args)
-		IO.puts "create riak obj in riak_elixir_client : #{inspect obj}"
     from_robj(to_robj(obj)) # FIXME
   end
 
